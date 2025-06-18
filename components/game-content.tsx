@@ -1,17 +1,26 @@
+// components/game-content.tsx
 "use client";
 
-import { useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
+import { useRef, useEffect } from "react";
+import { Loader2 } from "lucide-react"; // 로딩 스피너 아이콘
 
 interface GameContentProps {
   story: string;
   choices: string[];
   onChoiceSelected: (choice: string) => void;
   genre: string;
-  // AI 연동을 위해 추후 사용될 프롭들 (지금은 항상 false/0으로 전달)
   isLoading: boolean;
   isGameEnded: boolean;
   currentTurn: number;
+  // 🚨🚨🚨 새로 추가된 주관식 입력 관련 props 🚨🚨🚨
+  customChoiceInput: string;
+  onCustomChoiceInputChange: (value: string) => void;
+  onCustomChoiceSubmit: () => void;
+  // 🚨🚨🚨 설정에서 전달되는 폰트 스타일 props 🚨🚨🚨
+  fontSize: number;
+  fontFamily: string;
+  // 🚨🚨🚨 스토리 요약 props 추가 🚨🚨🚨
+  totalStorySummary: string;
 }
 
 export function GameContent({
@@ -22,91 +31,107 @@ export function GameContent({
   isLoading,
   isGameEnded,
   currentTurn,
+  customChoiceInput,
+  onCustomChoiceInputChange,
+  onCustomChoiceSubmit,
+  fontSize, // 폰트 크기 props
+  fontFamily, // 폰트 패밀리 props
+  totalStorySummary, // 스토리 요약 props
 }: GameContentProps) {
-  const storyRef = useRef<HTMLDivElement>(null);
+  const storyContainerRef = useRef<HTMLDivElement>(null);
 
+  // 새 스토리가 로드될 때마다 스크롤을 맨 아래로 이동
   useEffect(() => {
-    if (storyRef.current) {
-      storyRef.current.scrollTop = storyRef.current.scrollHeight;
+    if (storyContainerRef.current) {
+      storyContainerRef.current.scrollTop =
+        storyContainerRef.current.scrollHeight;
     }
-  }, [story, isLoading]);
+  }, [story]);
+
+  // 엔터 키로 주관식 입력 전송
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (
+      event.key === "Enter" &&
+      customChoiceInput.trim() !== "" &&
+      !isLoading
+    ) {
+      onCustomChoiceSubmit();
+    }
+  };
 
   return (
-    <div className="flex flex-col flex-1 p-4 bg-gray-800 rounded-lg shadow-lg relative overflow-hidden">
-      <div className="mb-4">
-        <span className="text-sm text-purple-400 font-medium">
-          {genre} 어드벤처
-        </span>
-      </div>
-
-      <div
-        ref={storyRef}
-        className="flex-1 bg-gray-800/50 rounded-lg p-6 mb-6 overflow-y-auto border border-gray-700"
-      >
-        <div className="prose prose-invert max-w-none">
-          {story.split("\n").map((paragraph, index) => (
-            <p key={index} className={index > 0 ? "mt-4" : ""}>
-              {paragraph}
-            </p>
-          ))}
+    <div className="flex flex-col flex-1 relative">
+      {/* 로딩 스피너 오버레이 */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-70 z-10 rounded-lg">
+          <Loader2 className="h-12 w-12 animate-spin text-purple-400" />
+          <p className="ml-4 text-purple-400 text-lg">스토리 생성 중...</p>
         </div>
-      </div>
+      )}
 
-      <div className="border-t border-gray-700 pt-4 mt-auto">
-        {isGameEnded ? (
-          <p className="text-center text-lg text-yellow-300">
-            게임이 종료되었습니다! 새로운 모험을 시작하려면 사이드바를
-            확인하세요.
-          </p>
-        ) : (
-          <div className="grid gap-3">
-            {choices.map((choice, index) => (
-              <Button
-                key={index}
-                variant="outline"
-                className="w-full py-6 text-left justify-start border border-gray-700 hover:bg-gray-800 hover:border-purple-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                onClick={() => onChoiceSelected(choice)}
-                disabled={isLoading} // AI 연동 시 로딩 중일 때 비활성화
-              >
-                <span className="text-purple-400 mr-3">{index + 1}.</span>{" "}
-                {choice}
-              </Button>
-            ))}
+      {/* 스토리 영역 */}
+      <div
+        ref={storyContainerRef}
+        className="flex-1 p-4 bg-gray-800 rounded-lg shadow-inner overflow-y-auto custom-scrollbar transition-colors duration-300"
+        style={{ fontSize: `${fontSize}px`, fontFamily: fontFamily }} // 폰트 스타일 적용
+      >
+        <p className="whitespace-pre-wrap leading-relaxed">{story}</p>
+
+        {/* 🚨🚨🚨 스토리 요약 표시 🚨🚨🚨 */}
+        {totalStorySummary && (
+          <div className="mt-6 p-4 bg-gray-700 rounded-lg border border-gray-600 text-gray-300 text-sm italic">
+            <h3 className="font-bold text-gray-100 mb-2 border-b border-gray-600 pb-1">
+              지금까지의 이야기 요약:
+            </h3>
+            <p className="whitespace-pre-wrap">{totalStorySummary}</p>
           </div>
         )}
       </div>
 
-      {!isGameEnded && currentTurn > 0 && (
-        <p className="text-center text-gray-500 text-sm mt-4">
-          현재 턴: {currentTurn}
-        </p>
-      )}
+      {/* 게임 상태 정보 */}
+      <div className="mt-4 p-3 bg-gray-700 rounded-lg text-sm text-gray-300 flex justify-between items-center">
+        <span>장르: {genre}</span>
+        <span>턴 수: {currentTurn}</span>
+      </div>
 
-      {/* 로딩 스피너: isLoading이 true일 때만 표시됩니다. 현재는 page.tsx에서 false로 전달 */}
-      {isLoading && (
-        <div className="absolute inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center rounded-lg">
-          <svg
-            className="animate-spin h-10 w-10 text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            ></circle>
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            ></path>
-          </svg>
-        </div>
-      )}
+      {/* 선택지 버튼 및 주관식 입력 */}
+      <div className="mt-4 p-4 bg-gray-800 rounded-lg flex flex-col items-center">
+        {isGameEnded ? (
+          <p className="text-lg text-red-400 font-bold">게임 종료!</p>
+        ) : (
+          <div className="w-full space-y-3">
+            {choices.map((choice, index) => (
+              <button
+                key={index}
+                onClick={() => onChoiceSelected(choice)}
+                disabled={isLoading}
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-md transition duration-300 ease-in-out shadow-lg transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {choice}
+              </button>
+            ))}
+            {/* 🚨🚨🚨 주관식 입력 필드 및 버튼 🚨🚨🚨 */}
+            <div className="flex w-full space-x-2 mt-4">
+              <input
+                type="text"
+                placeholder="나만의 행동 입력..."
+                value={customChoiceInput}
+                onChange={(e) => onCustomChoiceInputChange(e.target.value)}
+                onKeyDown={handleKeyDown}
+                disabled={isLoading}
+                className="flex-1 p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              />
+              <button
+                onClick={onCustomChoiceSubmit}
+                disabled={isLoading || customChoiceInput.trim() === ""}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition duration-300 ease-in-out shadow-lg transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                입력
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
