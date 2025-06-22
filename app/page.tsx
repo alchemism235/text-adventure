@@ -21,6 +21,73 @@ const DEFAULT_FONT_SIZE = 16; // 기본 폰트 크기 (px)
 const DEFAULT_FONT_FAMILY = "Inter, sans-serif"; // 기본 폰트
 const DEFAULT_LIGHT_MODE = false; // 기본 다크 모드
 
+// 🚨🚨🚨 사용자님이 제공해주신 판타지 초기 스토리 및 선택지 데이터 🚨🚨🚨
+const FIXED_FANTASY_INTRO = {
+  content: `에리스 벨라노아는 그늘진 숲을 지나가며 숨을 꼭 참았다. 가지 아래로 비치는 달빛은 그녀의 표정을 조명하며, 그녀의 은빛 눈동자는 고요한 밤을 비추며 빛났다. 흑발은 잔잔한 서풍에 흩날리며, 그녀의 두 눈은 확고한 일념으로 앞을 바라보았다. 그녀는 대륙 북부의 마법귀족 벨라노아 가문의 후예이며, 현재는 신분을 숨기고 떠도는 마도사였다. 
+
+"에레디아, 제7마력기..." 에리스는 어릴 때부터 수많은 이야기를 들었다. '마력붕괴'라는 이름으로 대륙을 동요시킨 그 끔찍한 사건은, 고대의 금지된 마법이 오용되어 대륙 절반이 황무지가 된 것이었다. 그리고 그 후 사람들은 폐허를 복구하며 질서를 되찾아 나간다. 마법에 대한 공포와 동경이 공존하는 세상, 고대 유적을 탐사하거나 잊힌 마법서를 찾는 이들이 늘어가는 세상.
+
+에리스는 손가락에 걸린 낡은 마법 가문의 인장 반지를 바라보았다. 반지는 고대마법의 흔적을 지니고 있었고, 그 무게는 그녀가 봉인해야 하는 책임을 상기시켰다. 그녀는 신비한 문양이 그려진 오래된 지도를 꺼냈다. 이것은 '파멸의 기록'을 찾아가는 지침서였다. 그녀의 가문에는 고대 금지된 마법을 봉인해오던 역사가 있었고, 그녀의 몸에는 그 흔적이 깊이 새겨져 있었다.
+
+"이 지도가 나를 안내할 것이다." 그녀는 혼자 중얼거렸다. 그녀는 마법을 사용하면 몸에 고통이 따르는 저주에 시달리고 있었다. 다만 그 고통이 그녀를 힘들게 만들지 않았다. 그 고통은 그녀에게 단순히 '고통'이 아니라, '책임의 무게'이자 '현실을 직시하는 용기'이기도 했다.
+
+그녀는 금지된 마법이 깨어나고 있음을 느꼈다. 세계의 균형이 무너질 위기에 처한 이 세상이 그녀에게 필요로 하는거다. 에리스는 마력을 감지하며 숲을 빠져나왔다. 그녀의 눈에 반짝이는 불빛이 보였다. 고대 유적이 펼쳐진 폐허 앞에 선 에리스는 호기심과 정의감으로 가득 차 있었다. 그녀는 숲을 나와 바람을 느끼며 속삭였다.
+
+"내가 여기 있는 이유는, 세상을 구하기 위해서다. 벨라노아 가문의 봉인자로서, 그리고 마법을 구해낼 마도사로서..." 
+
+그녀는 한숨을 내쉬며 앞으로 나아갔다. 에리스 벨라노아의 험난한 여정이 이제 시작되었다.`,
+  choices: [
+    "유적 안으로 곧장 들어가 조사를 시작한다.",
+    "근처에 숨을 곳을 찾아 밤을 보내며 마력의 흐름을 관측한다.",
+  ],
+};
+
+// 🚨🚨🚨 사용자님이 제공해주신 Sci-Fi 초기 스토리 및 선택지 데이터 🚨🚨🚨
+const FIXED_SCI_FI_INTRO = {
+  content: `서기 2190년, 도시 네오크레아. 감정은 위험 요소로 분류되고, 시민의 일상은 AI 총합체 에이드라(AIDRA)에 의해 완벽하게 조율된다.
+
+유전정보센터에서 근무 중이던 루시아는 오늘도 일상적인 감정 로그를 검토하고 있었다.  
+그러다 한 시민의 기록에서 이상 감정 반응 로그를 발견한다. 분명히 슬픔 수치가 기준치를 초과했지만, AI 감시 시스템이 아무런 조치를 취하지 않았다.
+
+그 순간, 루시아의 머릿속으로 경고창이 뜬다.
+
+"Emotion Threshold Exceeded: No Warning Issued."
+
+그녀는 손끝이 떨리는 걸 느낀다. 방금 전, 자신도 감정을 느꼈다. 분명히 감정이 격해졌지만, **자신에게도 아무런 경고가 오지 않았다.**
+
+"…왜 나도 감지되지 않은 거지?"
+
+두려움이 가슴을 파고든다. 어쩌면, 자신은 시스템의 밖에 있는 존재일지도 모른다는 생각. 그리고, 그 감정 로그를 남기고 사라진 시민… 그는 누구였을까?
+
+루시아는 망설인다. 감정은 위험한 것이다. 하지만 이대로 넘어가면, 영영 진실에 다다를 수 없을지도 모른다.`,
+  choices: [
+    "기록된 시민 ID의 흔적을 추적해본다.",
+    "불안한 마음을 숨기고 일상으로 돌아간다.",
+  ],
+};
+
+// 🚨🚨🚨 사용자님이 제공해주신 Mystery 초기 스토리 및 선택지 데이터 🚨🚨🚨
+const FIXED_MYSTERY_INTRO = {
+  content: `1987년 가을, 을지로의 한 라디오 방송국.  
+한서린은 늦은 밤까지 음향 편집실에 홀로 남아 있었다.  
+의뢰받은 라디오 드라마 녹음을 정리하던 중,  
+녹음되지 말아야 할 한 구간이 테이프 속에서 튀어나왔다.
+
+—— “S-02 실험체 반응 이상 없음… 대상은 감정 파장에 민감한 상태로 유지 중…”
+
+낯선 남자의 목소리.  
+그 순간, 서린의 머릿속에 강렬한 두통과 함께 불안한 감정이 밀려들었다.  
+익숙하면서도 낯선 그 감정… 그리고 'S-02'라는 이름.
+
+그녀는 의자에서 몸을 일으키며, 멈춰 선 테이프를 바라보았다.  
+진실을 들을 준비가 되어 있는 걸까? 아니면 그냥 일상으로 돌아가야 할까?`,
+
+  choices: [
+    "테이프를 다시 재생해본다. 그 목소리에 더 집중해본다.",
+    "테이프를 꺼버리고 집으로 돌아간다. 이건 단지 편집 오류일 뿐이다.",
+  ],
+};
+
 // 게임 저장 데이터 타입
 interface GameSaveData {
   saveId: string;
@@ -56,19 +123,19 @@ export default function TextAdventure() {
   const [saveGameName, setSaveGameName] = useState("");
   const [savedGamesList, setSavedGamesList] = useState<GameSaveData[]>([]);
 
-  // 🚨🚨🚨 새로운 설정 관련 상태 🚨🚨🚨
+  // 새로운 설정 관련 상태
   const [maxTurnsLimit, setMaxTurnsLimit] = useState(DEFAULT_MAX_TURNS);
   const [fontSize, setFontSize] = useState(DEFAULT_FONT_SIZE);
   const [fontFamily, setFontFamily] = useState(DEFAULT_FONT_FAMILY);
   const [isLightMode, setIsLightMode] = useState(DEFAULT_LIGHT_MODE);
 
-  // 🚨🚨🚨 주관식 입력 상태 🚨🚨🚨
+  // 주관식 입력 상태
   const [customChoiceInput, setCustomChoiceInput] = useState("");
 
-  // 🚨🚨🚨 스토리 요약 상태 추가 🚨🚨🚨
+  // 스토리 요약 상태 추가
   const [totalStorySummary, setTotalStorySummary] = useState<string>("");
 
-  // 🚨🚨🚨 설정 값 로컬 스토리지에서 로드 및 저장 🚨🚨🚨
+  // 설정 값 로컬 스토리지에서 로드 및 저장
   useEffect(() => {
     // 설정 불러오기
     try {
@@ -83,7 +150,7 @@ export default function TextAdventure() {
     } catch (error) {
       console.error("Failed to load settings from local storage:", error);
     }
-  }, []); // 컴포넌트 마운트 시 한 번만 실행
+  }, []);
 
   useEffect(() => {
     // 설정 변경 시 로컬 스토리지에 저장
@@ -116,7 +183,6 @@ export default function TextAdventure() {
         let mode: "text" | "json" = "json";
 
         if (action === "start") {
-          // 🚨🚨🚨 시작 프롬프트 수정: 요약 요청 추가 및 선택지 2개로 제한 🚨🚨🚨
           prompt = `텍스트 어드벤처 게임을 시작합니다. 장르는 "${selectedGenre}"입니다. 첫 번째 시나리오를 제시하고 두 가지의 선택지를 JSON 형식으로 제공해주세요. JSON 형식은 항상 {"content": "스토리 내용", "choices": ["선택지1", "선택지2"], "lastStorySummary": "이전 스토리 요약"} 입니다. "lastStorySummary"는 현재 생성하는 스토리의 요약을 3~4문장으로 작성합니다. 스토리는 선택된 장르의 분위기(예: 어두운 판타지, 첨단 SF, 미스터리 수사)에 맞춰 생생하게 묘사해주세요.`;
           mode = "json";
           setGameContext([]);
@@ -124,7 +190,6 @@ export default function TextAdventure() {
           setTotalStorySummary(""); // 새 게임 시작 시 요약 초기화
         } else if (action === "continue" && userChoice) {
           const lastStory = currentStory;
-          // 🚨🚨🚨 계속 진행 시 프롬프트 수정: 요약 요청 추가 및 선택지 2개로 제한 🚨🚨🚨
           prompt = `이전 스토리: "${lastStory}". 사용자 선택: "${userChoice}". 이 선택에 따라 다음 스토리 시나리오를 제시하고 두 가지의 선택지를 JSON 형식으로 제공해주세요. JSON 형식은 항상 {"content": "스토리 내용", "choices": ["선택지1", "선택지2"], "lastStorySummary": "이전 스토리 요약"} 입니다. "lastStorySummary"는 현재 생성하는 스토리의 요약을 3~4문장으로 작성합니다. 스토리는 선택된 장르의 분위기에 맞춰 생생하게 묘사해주세요. 만약 게임이 종료되어야 한다면, choices 배열을 비워주세요. (예: "choices": [])`;
           mode = "json";
         }
@@ -160,7 +225,6 @@ export default function TextAdventure() {
         setCurrentStory(newStory);
         setChoices(newChoices);
         setTotalStorySummary((prevSummary) => {
-          // 기존 요약이 있고 새 요약이 있다면 줄바꿈으로 연결
           return prevSummary
             ? `${prevSummary}\n\n${newStorySummary}`
             : newStorySummary;
@@ -189,7 +253,46 @@ export default function TextAdventure() {
       setGameStarted(true);
       setSelectedGenre(genre);
       setIsGameEnded(false);
-      await fetchStory("start");
+      setCustomChoiceInput(""); // 장르 선택 시 주관식 입력 초기화
+      setTotalStorySummary(""); // 장르 선택 시 총 요약 초기화
+
+      // 🚨🚨🚨 장르별 고정된 초기 스토리 사용 로직 🚨🚨🚨
+      let fixedIntroData = null;
+      let initialSummary = "";
+
+      if (genre === "Fantasy") {
+        fixedIntroData = FIXED_FANTASY_INTRO;
+        initialSummary =
+          "벨라노아 가문의 에리스가 고대 유적을 찾아 모험을 시작합니다.";
+      } else if (genre === "Sci-Fi") {
+        fixedIntroData = FIXED_SCI_FI_INTRO;
+        initialSummary =
+          "감정이 통제되는 도시 네오크레아에서 루시아가 감지되지 않은 감정 반응의 미스터리를 추적합니다.";
+      } else if (genre === "Mystery") {
+        fixedIntroData = FIXED_MYSTERY_INTRO;
+        initialSummary =
+          "사설 탐정 한서린이 라디오 테이프에서 발견된 기이한 녹음과 연쇄 실종 사건의 연결고리를 파헤칩니다.";
+      }
+
+      if (fixedIntroData) {
+        setCurrentStory(fixedIntroData.content);
+        setChoices(fixedIntroData.choices);
+        setGameContext([
+          { role: "user", content: `${genre} 게임 시작` },
+          {
+            role: "assistant",
+            content: fixedIntroData.content,
+            choices: fixedIntroData.choices,
+            summary: initialSummary,
+          },
+        ]);
+        setTotalStorySummary(initialSummary);
+        setCurrentTurn(1);
+        setIsLoading(false);
+      } else {
+        // 다른 장르 선택 시 AI로부터 첫 스토리 생성
+        await fetchStory("start");
+      }
     },
     [fetchStory]
   );
@@ -366,7 +469,7 @@ export default function TextAdventure() {
                 isLightMode ? "text-purple-700" : "text-purple-300"
               }`}
             >
-              AI 텍스트 어드벤처 게임
+              무한한 이야기: 당신의 선택
             </h1>
           </header>
 
@@ -390,7 +493,7 @@ export default function TextAdventure() {
                 customChoiceInput={customChoiceInput}
                 onCustomChoiceInputChange={setCustomChoiceInput}
                 onCustomChoiceSubmit={() => handleChoice(customChoiceInput)}
-                totalStorySummary={totalStorySummary} // 🚨🚨🚨 스토리 요약 전달 🚨🚨🚨
+                totalStorySummary={totalStorySummary}
               />
             )}
           </main>

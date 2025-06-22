@@ -2,7 +2,6 @@
 // AI SDK의 텍스트 생성 함수를 임포트합니다.
 import { generateText } from "ai";
 // OpenAI 클라이언트 '인스턴스'를 직접 임포트합니다.
-// 🚨🚨🚨 'OpenAI' 클래스 대신 'openai' 인스턴스를 직접 임포트합니다. 🚨�🚨
 import { openai } from "@ai-sdk/openai";
 // Next.js의 요청(Request) 및 응답(Response) 객체 타입을 임포트합니다.
 import { type NextRequest, NextResponse } from "next/server";
@@ -10,11 +9,6 @@ import { type NextRequest, NextResponse } from "next/server";
 // init_fantasy.json 데이터를 임포트합니다.
 // 이 파일은 'text-adventure/app/data/init_fantasy.json' 경로에 있어야 합니다.
 import initFantasyData from "@/app/data/init_fantasy.json";
-
-// 🚨🚨🚨 OpenAI 클라이언트 인스턴스를 직접 임포트하므로, 이 인스턴스 생성 코드는 더 이상 필요 없습니다. 🚨🚨🚨
-// 라이브러리가 기본 API 키와 experimental_response_format 설정을 자동으로 처리합니다.
-// 만약 커스텀 설정이 필요하다면, 다시 'new OpenAI(...)' 방식을 사용해야 합니다.
-// 현재는 `.env.local`의 `OPENAI_API_KEY`를 자동으로 사용하고 `experimental_response_format: true`가 적용된다고 가정합니다.
 
 // GPT에게 순수한 소설 본문만 요청하는 함수입니다.
 // 현재 게임 흐름에서는 직접 사용되지 않지만, 다른 텍스트 요청 시 활용될 수 있습니다.
